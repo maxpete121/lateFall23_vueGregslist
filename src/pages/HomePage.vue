@@ -8,17 +8,23 @@
         <div>View Houses🏠</div>
       </router-link>
       <div>View Jobs🧑‍🏭</div>
+
+      <ModalWrapper modalId="home-page-modal" modalSize="sm">
+        Modal on the homepage
+      </ModalWrapper>
+      <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#home-page-modal">open modal</button>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  setup() {
-    return {
+import ModalWrapper from '../components/ModalWrapper.vue';
 
-    }
-  }
+export default {
+    setup() {
+        return {};
+    },
+    components: { ModalWrapper }
 }
 </script>
 
