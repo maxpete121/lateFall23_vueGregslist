@@ -1,29 +1,41 @@
 <template>
   <section class="container-fluid">
-    <div>
-      <form class="row mt-2 mb-2" @submit.prevent="createHouse()">
-        <div class="col-2">
-          <label for="">Price:</label>
-          <input v-model="houseData.price" type="text" required maxlength="20">
-          <label for="">Levels:</label>
-          <input v-model="houseData.levels" type="text" required maxlength="3">
+    
+      <form class="row mt-2 mb-2 justify-content-center" @submit.prevent="createHouse()">
+        <div class="col-3 text-center">
+          <div>
+            <label for="">Price:</label>
+            <input v-model="houseData.price" type="text" required maxlength="20">
+          </div>
+          <div class="">
+            <label for="">Levels:</label>
+            <input name v-model="houseData.levels" type="text" required maxlength="3">
+          </div>
+        </div>
+        <div class="col-2 text-center">
+          <div>
+            <label for="">Bedrooms:</label>
+            <input v-model="houseData.bedrooms" type="text" required maxlength="3">
+          </div>
+          <div>
+            <label for="">Bathrooms:</label>
+            <input v-model="houseData.bathrooms" type="text" required maxlength="3">
+          </div>
+        </div>
+        <div class="col-2 text-center">
+          <div>
+            <label for="">Year:</label>
+            <input v-model="houseData.year" type="text" required maxlength="4">
+          </div>
+          <div>
+            <label for="">Image URL:</label>
+            <input v-model="houseData.imgUrl" type="text" required maxlength="200">
+          </div>
         </div>
         <div class="col-2">
-          <label for="">Bedrooms:</label>
-          <input v-model="houseData.bedrooms" type="text" required maxlength="3">
-          <label for="">Bathrooms:</label>
-          <input v-model="houseData.bathrooms" type="text" required maxlength="3">
-        </div>
-        <div class="col-2">
-          <label for="">Year:</label>
-          <input v-model="houseData.year" type="text" required maxlength="4">
-          <label for="">Image URL:</label>
-          <input v-model="houseData.imgUrl" type="text" required maxlength="200">
-        </div>
-        <div class="col-3">
           <img class="img-fluid" :src="houseData.imgUrl" alt="Image Preview">
         </div>
-        <div class="col-2">
+        <div class="col-4 mt-3">
           <label for="">Description:</label>
           <textarea v-model="houseData.description" name="house-description" maxlength="150" required cols="30" rows="5"></textarea>
         </div>
@@ -31,9 +43,9 @@
           <button>Post</button>
         </span>
       </form>
-    </div>
+    
     <div class="row justify-content center">
-      <div class="col-3 card m-2" v-for="houses in houses">
+      <div class="col-5 card m-2 p-2" v-for="houses in houses">
         <HouseCard :houseProp="houses" />
       </div>
 
@@ -54,6 +66,7 @@ import Pop from '../utils/Pop';
 export default {
   setup() {
     const houseData = ref({})
+    const account = computed(()=> AppState.account)
     onMounted(() => {
       getHouses()
     })
@@ -68,15 +81,21 @@ export default {
 
     async function createHouse(){
       await houseService.createHouse(houseData.value)
+      clearForm()
+    }
+    function clearForm(){
+      houseData.value = {}
     }
     return {
       houseData,
       createHouse,
-      houses: computed(() => AppState.houses)
+      houses: computed(() => AppState.houses),
+      clearForm,
+
     }
   }, components: { HouseCard }
 };
 </script>
 
 
-<style lang="scss" scoped></style>
+<style scoped></style>

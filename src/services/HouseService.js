@@ -1,14 +1,16 @@
 import { api } from "./AxiosService"
 import { AppState } from "../AppState"
 import { House } from "../models/House"
+import { all } from "axios"
 
 class HouseService{
 
     async getHouses(){
         const response = await api.get('api/houses')
-        let allHouses = response.data.map(house => new House(house))
+        let allHouses = await response.data.map(house => new House(house))
         console.log(allHouses)
-        AppState.houses = allHouses
+        AppState.houses = allHouses.reverse()
+        
     }
 
     async createHouse(houseData){
