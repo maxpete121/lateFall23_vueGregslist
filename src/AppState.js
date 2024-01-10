@@ -1,5 +1,6 @@
 import { reactive } from 'vue'
 import { Car } from './models/Car.js'
+import { House } from './models/House.js'
 
 // NOTE AppState is a reactive object to contain app level data
 export const AppState = reactive({
@@ -9,5 +10,8 @@ export const AppState = reactive({
 /** @type {Car[]} */
   cars: [],
 /** @type {Car} */
-  activeCar: null
+  activeCar: null,
+
+/**@type {House[]} */
+  houses: []
 })
