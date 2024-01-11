@@ -23,6 +23,7 @@ class HouseService{
         const response = await api.delete(`api/houses/${houseID}`)
         let houseIndex = await AppState.houses.findIndex(house => house.houseId = houseID)
         AppState.houses.splice(houseIndex-1, 1)
+        
     }
 }
 
